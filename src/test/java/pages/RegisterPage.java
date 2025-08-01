@@ -4,13 +4,18 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import java.time.Duration;
 
 public class RegisterPage {
     private WebDriver driver;
+    private WebDriverWait shortWait; // Para mensajes que aparecen rápido
 
     // Constructor
     public RegisterPage(WebDriver driver) {
         this.driver = driver;
+        this.shortWait = new WebDriverWait(driver, Duration.ofSeconds(3));    // Para mensajes de éxito/error
         PageFactory.initElements(driver, this);
     }
 
@@ -45,9 +50,13 @@ public class RegisterPage {
     // Métodos de acción
     public void navigateToRegisterPage() {
         driver.get("https://qa-practice.netlify.app/register");
+        // Esperar a que el formulario esté listo
+        shortWait.until(ExpectedConditions.visibilityOf(firstNameField));
     }
 
     public void enterFirstName(String firstName) {
+        // Esperar a que el campo esté disponible
+        shortWait.until(ExpectedConditions.elementToBeClickable(firstNameField));
         firstNameField.clear();
         firstNameField.sendKeys(firstName);
     }
@@ -84,6 +93,8 @@ public class RegisterPage {
     }
 
     public void clickSubmitButton() {
+        // Esperar a que el botón esté disponible antes de hacer clic
+        shortWait.until(ExpectedConditions.elementToBeClickable(submitButton));
         submitButton.click();
     }
 
@@ -108,7 +119,8 @@ public class RegisterPage {
 
     public boolean isSuccessMessageDisplayed() {
         try {
-            return successMessage.isDisplayed();
+            // Usar shortWait (3 segundos) para mensajes que aparecen rápido
+            return shortWait.until(ExpectedConditions.visibilityOf(successMessage)).isDisplayed();
         } catch (Exception e) {
             return false;
         }

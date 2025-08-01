@@ -30,11 +30,6 @@ public class LoginTest extends BaseTest {
         // Captura ANTES del login
         takeScreenshotBeforeValidation("Pagina_Login_Inicial");
         
-        System.out.println("🧪 Probando: " + description);
-        System.out.println("📧 Email: '" + email + "'");
-        System.out.println("🔐 Password: '" + password + "'");
-        System.out.println("✅ Esperado éxito: " + expectedSuccess);
-        
         // Realizar login
         loginPage.login(email, password);
         

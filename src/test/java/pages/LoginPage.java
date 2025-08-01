@@ -11,11 +11,15 @@ import java.time.Duration;
 public class LoginPage {
     private WebDriver driver;
     private WebDriverWait wait;
+    private WebDriverWait shortWait; // Para mensajes de error que aparecen rápido
+    private WebDriverWait longWait;  // Para navegación y carga de páginas
 
     // Constructor
     public LoginPage(WebDriver driver) {
         this.driver = driver;
-        this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));        // Wait general
+        this.shortWait = new WebDriverWait(driver, Duration.ofSeconds(3));    // Para mensajes de error
+        this.longWait = new WebDriverWait(driver, Duration.ofSeconds(8));     // Para navegación (reducido)
         PageFactory.initElements(driver, this);
     }
 
@@ -82,7 +86,8 @@ public class LoginPage {
 
     public boolean isErrorMessageDisplayed() {
         try {
-            return wait.until(ExpectedConditions.visibilityOf(errorMessage)).isDisplayed();
+            // Usar shortWait (3 segundos) para mensajes de error que aparecen rápido
+            return shortWait.until(ExpectedConditions.visibilityOf(errorMessage)).isDisplayed();
         } catch (Exception e) {
             return false;
         }
@@ -97,7 +102,8 @@ public class LoginPage {
 
     public boolean isWelcomeMessageDisplayed() {
         try {
-            return wait.until(ExpectedConditions.visibilityOf(shoppingCartHeader)).isDisplayed();
+            // Usar longWait (15 segundos) para navegación a nueva página
+            return longWait.until(ExpectedConditions.visibilityOf(shoppingCartHeader)).isDisplayed();
         } catch (Exception e) {
             return false;
         }
@@ -112,7 +118,8 @@ public class LoginPage {
 
     public boolean isShoppingCartPageDisplayed() {
         try {
-            return wait.until(ExpectedConditions.visibilityOf(shoppingCartHeader)).isDisplayed();
+            // Usar longWait (15 segundos) para navegación a shopping cart
+            return longWait.until(ExpectedConditions.visibilityOf(shoppingCartHeader)).isDisplayed();
         } catch (Exception e) {
             return false;
         }

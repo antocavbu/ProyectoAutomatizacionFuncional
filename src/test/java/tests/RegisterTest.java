@@ -31,14 +31,6 @@ public class RegisterTest extends BaseTest {
         // Captura ANTES de llenar el formulario
         takeScreenshotBeforeValidation("Formulario_Registro_Inicial");
         
-        System.out.println("🧪 Probando registro: " + description);
-        System.out.println("👤 Nombre: '" + firstName + "'");
-        System.out.println("👥 Apellido: '" + lastName + "'");
-        System.out.println("📞 Teléfono: '" + phone + "'");
-        System.out.println("🌍 País: '" + country + "'");
-        System.out.println("📧 Email: '" + email + "'");
-        System.out.println("🔐 Password: '" + password + "'");
-        
         // Llenar el formulario con los datos del DataProvider
         registerPage.fillRegistrationForm(firstName, lastName, phone, country, email, password);
         
