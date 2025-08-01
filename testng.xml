@@ -1,0 +1,34 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+<suite name="SuiteBase" parallel="false">
+  
+  <!-- Tests en Chrome -->
+  <test name="Chrome - Register Page Tests">
+    <parameter name="browser" value="chrome"/>
+    <classes>
+      <class name="tests.RegisterTest"/>
+    </classes>
+  </test>
+  
+  <test name="Chrome - Login Page Tests">
+    <parameter name="browser" value="chrome"/>
+    <classes>
+      <class name="tests.LoginTest"/>
+    </classes>
+  </test>
+  
+  <!-- Tests en Firefox -->
+  <test name="Firefox - Register Page Tests">
+    <parameter name="browser" value="firefox"/>
+    <classes>
+      <class name="tests.RegisterTest"/>
+    </classes>
+  </test>
+  
+  <test name="Firefox - Login Page Tests">
+    <parameter name="browser" value="firefox"/>
+    <classes>
+      <class name="tests.LoginTest"/>
+    </classes>
+  </test>
+  
+</suite>
