@@ -28,14 +28,8 @@ public class RegisterTest extends BaseTest {
         RegisterPage registerPage = new RegisterPage(driver);
         registerPage.navigateToRegisterPage();
         
-        // Captura ANTES de llenar el formulario
-        takeScreenshotBeforeValidation("Formulario_Registro_Inicial");
-        
         // Llenar el formulario con los datos del DataProvider
         registerPage.fillRegistrationForm(firstName, lastName, phone, country, email, password);
-        
-        // Captura DESPUÉS de llenar el formulario y ANTES de validaciones
-        takeScreenshotBeforeValidation("Formulario_Llenado_" + description.replaceAll(" ", "_"));
         
         // Verificar que estamos en la página correcta después de llenar
         Assert.assertEquals(registerPage.getCurrentUrl(), "https://qa-practice.netlify.app/register", 
@@ -43,25 +37,22 @@ public class RegisterTest extends BaseTest {
         
         // Verificar que los campos se llenaron (para campos no vacíos)
         if (!firstName.isEmpty()) {
-            System.out.println("✅ Campo firstName llenado correctamente");
+            System.out.println("Campo firstName llenado correctamente");
         }
         if (!lastName.isEmpty()) {
-            System.out.println("✅ Campo lastName llenado correctamente");
+            System.out.println("Campo lastName llenado correctamente");
         }
         if (!phone.isEmpty()) {
-            System.out.println("✅ Campo phone llenado correctamente");
+            System.out.println("Campo phone llenado correctamente");
         }
         if (!email.isEmpty()) {
-            System.out.println("✅ Campo email llenado correctamente");
+            System.out.println("Campo email llenado correctamente");
         }
         if (!password.isEmpty()) {
-            System.out.println("✅ Campo password llenado correctamente");
+            System.out.println("Campo password llenado correctamente");
         }
         
-        // Captura DESPUÉS de validaciones exitosas
-        takeScreenshotAfterValidation("Validaciones_Completadas_" + description.replaceAll(" ", "_"));
-        
-        System.out.println("✅ Formulario procesado para: " + description);
+        System.out.println("Formulario procesado para: " + description);
         System.out.println("---");
     }
 }

@@ -27,14 +27,8 @@ public class LoginTest extends BaseTest {
         LoginPage loginPage = new LoginPage(driver);
         loginPage.navigateToLoginPage();
         
-        // Captura ANTES del login
-        takeScreenshotBeforeValidation("Pagina_Login_Inicial");
-        
         // Realizar login
         loginPage.login(email, password);
-        
-        // Captura DESPUÉS del intento de login y ANTES de validaciones
-        takeScreenshotBeforeValidation("Despues_Login_" + description.replaceAll(" ", "_"));
         
         if (expectedSuccess) {
             // Verificar que el login fue exitoso
@@ -42,10 +36,7 @@ public class LoginTest extends BaseTest {
                 "❌ El login debería haber sido exitoso para: " + description);
             Assert.assertTrue(loginPage.isShoppingCartPageDisplayed(), 
                 "❌ No se muestra la página del shopping cart para: " + description);
-            System.out.println("✅ Login exitoso confirmado");
-            
-            // Captura DESPUÉS de validación exitosa
-            takeScreenshotAfterValidation("Login_Exitoso_" + description.replaceAll(" ", "_"));
+            System.out.println("Login exitoso confirmado");
         } else {
             // Verificar que el login falló
             Assert.assertFalse(loginPage.isLoginSuccessful(), 
@@ -58,15 +49,9 @@ public class LoginTest extends BaseTest {
                 Assert.assertEquals(loginPage.getErrorMessageText(), 
                     "Bad credentials! Please try again! Make sure that you've registered.", 
                     "❌ El mensaje de error no coincide para: " + description);
-                System.out.println("✅ Mensaje de error confirmado");
-                
-                // Captura DESPUÉS de validación de error
-                takeScreenshotAfterValidation("Login_Error_" + description.replaceAll(" ", "_"));
+                System.out.println("Mensaje de error confirmado");
             } else {
-                System.out.println("✅ Login fallido confirmado (campos vacíos)");
-                
-                // Captura DESPUÉS de validación de campos vacíos
-                takeScreenshotAfterValidation("Login_Campos_Vacios_" + description.replaceAll(" ", "_"));
+                System.out.println("Login fallido confirmado (campos vacíos)");
             }
         }
         

@@ -12,14 +12,12 @@ public class LoginPage {
     private WebDriver driver;
     private WebDriverWait wait;
     private WebDriverWait shortWait; // Para mensajes de error que aparecen rápido
-    private WebDriverWait longWait;  // Para navegación y carga de páginas
 
     // Constructor
     public LoginPage(WebDriver driver) {
         this.driver = driver;
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));        // Wait general
         this.shortWait = new WebDriverWait(driver, Duration.ofSeconds(3));    // Para mensajes de error
-        this.longWait = new WebDriverWait(driver, Duration.ofSeconds(8));     // Para navegación (reducido)
         PageFactory.initElements(driver, this);
     }
 
@@ -102,8 +100,8 @@ public class LoginPage {
 
     public boolean isWelcomeMessageDisplayed() {
         try {
-            // Usar longWait (15 segundos) para navegación a nueva página
-            return longWait.until(ExpectedConditions.visibilityOf(shoppingCartHeader)).isDisplayed();
+            // Usar wait normal (10 segundos) para navegación exitosa
+            return wait.until(ExpectedConditions.visibilityOf(shoppingCartHeader)).isDisplayed();
         } catch (Exception e) {
             return false;
         }
@@ -118,8 +116,8 @@ public class LoginPage {
 
     public boolean isShoppingCartPageDisplayed() {
         try {
-            // Usar longWait (15 segundos) para navegación a shopping cart
-            return longWait.until(ExpectedConditions.visibilityOf(shoppingCartHeader)).isDisplayed();
+            // Usar shortWait (3 segundos) para detección rápida
+            return shortWait.until(ExpectedConditions.visibilityOf(shoppingCartHeader)).isDisplayed();
         } catch (Exception e) {
             return false;
         }
@@ -134,8 +132,22 @@ public class LoginPage {
     }
 
     public boolean isLoginSuccessful() {
-        // Verificar si estamos en la página del shopping cart (indicador de login exitoso)
-        return isShoppingCartPageDisplayed();
+        // Primero verificar rápidamente si hay mensaje de error (indica login fallido)
+        try {
+            // Si hay mensaje de error, el login falló
+            if (shortWait.until(ExpectedConditions.visibilityOf(errorMessage)).isDisplayed()) {
+                return false;
+            }
+        } catch (Exception e) {
+            // No hay mensaje de error, continuar verificando si login fue exitoso
+        }
+        
+        // Si no hay mensaje de error, verificar si llegamos al shopping cart
+        try {
+            return shortWait.until(ExpectedConditions.visibilityOf(shoppingCartHeader)).isDisplayed();
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     // Métodos para obtener mensajes de validación

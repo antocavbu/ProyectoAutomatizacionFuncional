@@ -49,7 +49,6 @@ buildNumber.properties
 Thumbs.db
 
 # Selenium
-screenshots/
 logs/
 test-output/
 

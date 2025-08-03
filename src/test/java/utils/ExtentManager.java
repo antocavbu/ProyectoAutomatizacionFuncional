@@ -59,7 +59,7 @@ public class ExtentManager {
     public static void flushReports() {
         if (extent != null) {
             extent.flush();
-            System.out.println("📊 Reporte HTML generado: reports\\" + reportFileName);
+            System.out.println("Reporte HTML generado: reports\\" + reportFileName);
         }
     }
 

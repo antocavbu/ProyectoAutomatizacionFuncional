@@ -33,6 +33,7 @@ Entrega-modulo4/
 - **Selenium WebDriver 4.15.0**: Automatización de navegadores
 - **TestNG 7.8.0**: Framework de testing con DataProvider
 - **ExtentReports 5.1.1**: Reportes HTML profesionales con screenshots
+- **AShot 1.5.4**: Capturas de pantalla de página completa
 - **WebDriverManager 5.6.2**: Gestión automática de drivers
 - **Apache Commons IO 2.15.1**: Utilidades para manejo de archivos
 
@@ -95,29 +96,30 @@ start reports\ExtentReport_<timestamp>.html
 
 ### Tests incluidos
 
-#### 🔐 LoginTest.java (8 escenarios)
-- ✅ Credenciales correctas
-- ❌ Email y password incorrectos  
-- ❌ Email correcto, password incorrecto
-- ❌ Email incorrecto, password correcto
+#### 🔐 LoginTest.java (8 escenarios × 2 navegadores = 16 tests)
+- ✅ Credenciales correctas (standard_user/secret_sauce)
+- ❌ Usuario y contraseña incorrectos  
+- ❌ Usuario correcto, contraseña incorrecta
+- ❌ Usuario incorrecto, contraseña correcta
 - ❌ Campos vacíos
-- ❌ Solo email, password vacío
-- ❌ Solo password, email vacío
-- ❌ Email con formato inválido
+- ❌ Solo usuario, contraseña vacía
+- ❌ Solo contraseña, usuario vacío
+- ❌ Usuario con formato inválido
 
-#### 📝 RegisterTest.java (8 escenarios)
+#### 📝 RegisterTest.java (8 escenarios × 2 navegadores = 16 tests)
 - ✅ Registro exitoso con datos válidos
-- ❌ Email ya registrado
-- ❌ Passwords no coinciden
-- ❌ Campos obligatorios vacíos
-- ❌ Email con formato inválido
-- ❌ Password muy corto
-- ❌ Nombre con caracteres especiales
-- ❌ Formulario completamente vacío
+- ✅ Registro exitoso con datos alternativos
+- ❌ Nombre vacío
+- ❌ Apellido vacío
+- ❌ Teléfono vacío
+- ❌ Email vacío
+- ❌ Password vacía
+- ❌ Todos los campos vacíos
 
 ### Screenshots automáticos
 - **Ubicación:** `screenshots/`
 - **Formato:** PNG con timestamp
+- **Tecnología:** AShot (página completa, sin JavaScript)
 - **Captura:** Antes y después de cada validación
 - **Integración:** Automática en reportes ExtentReports
 
@@ -161,15 +163,19 @@ private static final String BASE_URL = "https://react-shopping-cart-67954.fireba
 ```
 
 ## 📈 Estadísticas del proyecto
-- **Total de tests:** 32 (16 de Login + 16 de Register)
-- **Tiempo de ejecución promedio:** ~5-6 minutos
-- **Cobertura:** Login completo y flujo de registro
-- **Navegadores soportados:** Chrome, Firefox
+- **Total de tests:** 32 (16 Chrome + 16 Firefox = 8 casos × 2 navegadores)
+- **Tiempo de ejecución:** ~3 minutos (182.9 segundos)
+- **Screenshots generados:** 32 capturas (1 por test usando AShot)
+- **Cobertura funcional:** Login completo y flujo de registro
+- **Navegadores soportados:** Chrome, Firefox (ejecución cross-browser)
 - **Patrón de diseño:** Page Object Model (POM)
+- **Timeouts configurados:** Detección de errores en 3 segundos, validación exitosa en 10 segundos
 
-##  Notas importantes
+
+### Características técnicas
 - Las capturas de pantalla se almacenan localmente y se integran automáticamente en el reporte HTML
 - El proyecto utiliza TestNG DataProvider para tests data-driven
+- WebDriverManager gestiona automáticamente las versiones de drivers
 
 ---
 
